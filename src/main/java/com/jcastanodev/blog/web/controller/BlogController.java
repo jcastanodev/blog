@@ -27,23 +27,23 @@ public class BlogController {
     }
 
     @GetMapping("/category/{categoryId}")
-    public Optional<List<Post>> getByCategoryId(int categoryId) {
-        return postService.getByCategoryId(categoryId);
+    public ResponseEntity<List<Post>> getByCategoryId(int categoryId) {
+        return postService.getByCategoryId(categoryId).map(posts -> new ResponseEntity<>(posts, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/user/{userId}")
-    public Optional<List<Post>> getByUserId(int userId) {
-        return postService.getByUserId(userId);
+    public ResponseEntity<List<Post>> getByUserId(int userId) {
+        return postService.getByUserId(userId).map(posts -> new ResponseEntity<>(posts, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/")
-    public Post save(@RequestBody Post post) {
+    public ResponseEntity<Post> save(@RequestBody Post post) {
         // System.out.println(post.getTitle());
-        return postService.save(post);
+        return new ResponseEntity<>(postService.save(post), HttpStatus.CREATED);
     }
 
     @PostMapping("/delete/{postId}")
-    public boolean delete(int postId) {
-        return postService.delete(postId);
+    public ResponseEntity<Void> delete(int postId) {
+        return postService.delete(postId) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
