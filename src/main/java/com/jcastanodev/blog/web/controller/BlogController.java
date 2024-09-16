@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/blog")
@@ -38,7 +37,6 @@ public class BlogController {
 
     @PostMapping("/")
     public ResponseEntity<Post> save(@RequestBody Post post) {
-        // System.out.println(post.getTitle());
         return new ResponseEntity<>(postService.save(post), HttpStatus.CREATED);
     }
 
