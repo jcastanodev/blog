@@ -28,6 +28,15 @@ CREATE TABLE post_categories (
     PRIMARY KEY (post_id, category_id)
 );
 
+CREATE TABLE copilot_host (
+    copilot_id SERIAL PRIMARY KEY,
+    url VARCHAR(255) NOT NULL UNIQUE
+);
+
+-- copilot host
+INSERT INTO copilot_host (url) VALUES
+  ('http://localhost:8099');
+
 -- Categories
 INSERT INTO categories (name) VALUES
   ('Tecnología'),

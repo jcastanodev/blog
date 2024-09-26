@@ -2,12 +2,14 @@ package com.jcastanodev.blog.web.controller;
 
 import com.jcastanodev.blog.domain.Post;
 import com.jcastanodev.blog.domain.service.PostService;
+import com.jcastanodev.blog.domain.service.CopilotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @CrossOrigin(origins = "${spring.cors.allowed-origins}")
 @RestController
@@ -15,6 +17,8 @@ import java.util.List;
 public class BlogController {
     @Autowired
     private PostService postService;
+    @Autowired
+    private CopilotService copilotService;
 
     @GetMapping("/")
     public ResponseEntity<List<Post>> getAll() {
@@ -44,5 +48,11 @@ public class BlogController {
     @PostMapping("/delete/{postId}")
     public ResponseEntity<Void> delete(int postId) {
         return postService.delete(postId) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/copilot")
+    public ResponseEntity<String> copilot() {
+        String copilotUrl = copilotService.get();
+        return !Objects.equals(copilotUrl, "") ? new ResponseEntity<>(copilotUrl, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

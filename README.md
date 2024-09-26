@@ -38,3 +38,10 @@ Here are some potential features for the future of this API blog:
 * Automatically publish the generated and optimized blog posts to WordPress on a daily schedule.
 
 The ultimate goal is to create a fully automated system that curates, generates, optimizes, and publishes high-quality blog content without manual intervention.
+
+## Providers
+### Database
+https://railway.app/
+
+### Hosting
+https://render.com/
